@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "profile_pages",
+  "info": {
+    "singularName": "profile-page",
+    "pluralName": "profile-pages",
+    "displayName": "Profile Page",
+    "description": "Homepage profile (single entry)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "bio": {
+      "type": "text"
+    },
+    "avatarAlt": {
+      "type": "string"
+    },
+    "likeLabel": {
+      "type": "string",
+      "default": "Like"
+    },
+    "likeCount": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "profile.link"
+    }
+  }
+}

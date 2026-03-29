@@ -474,6 +474,49 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProfilePageProfilePage extends Struct.SingleTypeSchema {
+  collectionName: 'profile_pages';
+  info: {
+    description: 'Homepage profile (single entry)';
+    displayName: 'Profile Page';
+    pluralName: 'profile-pages';
+    singularName: 'profile-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Schema.Attribute.Media<'images'>;
+    avatarAlt: Schema.Attribute.String;
+    background: Schema.Attribute.Media<'images'>;
+    bio: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    likeCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    likeLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Like'>;
+    links: Schema.Attribute.Component<'profile.link', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::profile-page.profile-page'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -985,6 +1028,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::article.article': ApiArticleArticle;
+      'api::profile-page.profile-page': ApiProfilePageProfilePage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
